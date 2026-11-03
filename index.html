@@ -8,6 +8,7 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
 html,body{margin:0;height:100%;overflow:hidden;background:#02030a;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#dff;touch-action:none}
 #c{position:fixed;inset:0;width:100%;height:100%;display:block;transition:filter .35s}
+@media (min-aspect-ratio:3/4){#c,#fx,#scan,#flash,#hud,.screen{left:50%!important;right:auto!important;width:min(100vw,calc(100vh*.5625))!important;transform:translateX(-50%)}#c.glitch{animation:none}#hint,#toast{left:50%;right:auto;width:min(100vw,calc(100vh*.5625));transform:translateX(-50%)}#bInv{right:calc(50% - min(100vw,calc(100vh*.5625))/2 + 18px)}body.swap #bInv{left:calc(50% - min(100vw,calc(100vh*.5625))/2 + 18px);right:auto}}
 body.inv #c{filter:hue-rotate(150deg) saturate(1.35) contrast(1.1)}
 #c.glitch{animation:glitch .45s steps(2,end)}
 @keyframes glitch{0%{transform:translate(0,0)}20%{transform:translate(-10px,0) skewX(6deg)}40%{transform:translate(12px,2px) skewX(-5deg)}60%{transform:translate(-6px,-2px)}80%{transform:translate(4px,0) skewX(2deg)}100%{transform:none}}
@@ -22,10 +23,10 @@ body.inv #scan{opacity:1}
 #hud{position:fixed;inset:0;pointer-events:none;padding:max(10px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) 0 max(12px,env(safe-area-inset-left))}
 #top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
 .big{font-size:clamp(22px,5vw,34px);font-weight:800;letter-spacing:1px;text-shadow:0 0 12px #0ef}
-.sm{font-size:12px;opacity:.75;letter-spacing:2px}
-#zone{text-align:center;font-size:12px;letter-spacing:3px;opacity:.8;text-transform:uppercase}
-#lives{font-size:24px;letter-spacing:4px;text-align:right;text-shadow:0 0 10px #f2a}
-#ebar{margin:6px auto 0;width:min(70vw,420px);height:14px;border:1px solid #0ef8;border-radius:8px;overflow:hidden;background:#0008}
+.sm{font-size:11px;opacity:.75;letter-spacing:1px;white-space:nowrap}
+#zone{text-align:center;font-size:10px;letter-spacing:2px;opacity:.8;text-transform:uppercase}
+#lives{font-size:17px;letter-spacing:1px;white-space:nowrap;text-align:right;text-shadow:0 0 10px #f2a}
+#ebar{margin:6px auto 0;width:min(100%,420px);height:14px;border:1px solid #0ef8;border-radius:8px;overflow:hidden;background:#0008}
 #efill{height:100%;width:100%;background:linear-gradient(90deg,#0ef,#7af);transition:background .3s}
 body.inv #efill{background:linear-gradient(90deg,#f2a,#fa4)}
 #elabel{text-align:center;font-size:11px;letter-spacing:3px;margin-top:3px;opacity:.8}
@@ -35,10 +36,8 @@ body.inv #efill{background:linear-gradient(90deg,#f2a,#fa4)}
 @keyframes toast{0%{opacity:0;transform:scale(.7)}15%{opacity:1;transform:scale(1.1)}80%{opacity:1}100%{opacity:0;transform:translateY(-20px)}}
 .btn{position:fixed;bottom:max(22px,env(safe-area-inset-bottom));border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;letter-spacing:1px;pointer-events:auto;border:2px solid #0ef;background:rgba(0,40,60,.55);color:#0ef;box-shadow:0 0 22px #0ef6;touch-action:none}
 .btn:active,.btn.down{transform:scale(.93);background:rgba(0,120,160,.6)}
-#bInv{width:clamp(110px,26vw,150px);height:clamp(110px,26vw,150px);right:max(18px,env(safe-area-inset-right));font-size:16px;text-align:center;line-height:1.1}
-#bJump{width:clamp(78px,19vw,104px);height:clamp(78px,19vw,104px);left:max(18px,env(safe-area-inset-left));font-size:13px}
+#bInv{width:clamp(110px,30vw,150px);height:clamp(110px,30vw,150px);right:max(18px,env(safe-area-inset-right));bottom:max(46px,env(safe-area-inset-bottom));font-size:16px;text-align:center;line-height:1.1}
 body.swap #bInv{right:auto;left:max(18px,env(safe-area-inset-left))}
-body.swap #bJump{left:auto;right:max(18px,env(safe-area-inset-right))}
 body.inv #bInv{border-color:#f2a;color:#f2a;box-shadow:0 0 26px #f2a8;background:rgba(70,0,40,.55)}
 #bSwap{position:fixed;bottom:4px;left:50%;transform:translateX(-50%);pointer-events:auto;font-size:11px;opacity:.5;padding:6px 10px;color:#9cf;background:none;border:none}
 .screen{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(ellipse at center,rgba(0,20,40,.78),rgba(0,0,10,.94));padding:20px;z-index:5;overflow:auto}
@@ -58,24 +57,23 @@ body.inv #bInv{border-color:#f2a;color:#f2a;box-shadow:0 0 26px #f2a8;background
 <div id="hud">
   <div id="top">
     <div><div class="big" id="score">0</div><div class="sm" id="dist">0 m</div></div>
-    <div style="flex:1"><div id="zone">Lower Atrium</div>
+    <div style="flex:1;min-width:0"><div id="zone">Lower Atrium</div>
       <div id="ebar"><div id="efill"></div></div><div id="elabel">CHRONO-ENERGIE</div></div>
     <div><div id="lives">♥♥♥</div><div class="sm" style="text-align:right" id="best"></div></div>
   </div>
 </div>
 <div id="hint"></div>
 <div id="toast"></div>
-<div class="btn" id="bJump">SKOK</div>
 <div class="btn" id="bInv">INVERZE<br>ČASU</div>
-<button id="bSwap">⇄ prohodit tlačítka</button>
+<button id="bSwap">⇄ tlačítko vlevo/vpravo</button>
 
 <div class="screen on" id="menu">
   <h1>CHRONO-SPIRE</h1>
   <p class="sm" style="letter-spacing:4px">3D ENDLESS RUNNER · INVERZE ČASU</p>
   <p>Bež vzhůru zhroucenou věží. Stiskem <b>INVERZE</b> obrátíš tok času světa – ty ovládáš dál, ale příčina a následek couvají.</p>
-  <p><b>Turniket</b> je v inverzi průchozí · <b>Zřícené schody</b> se v inverzi složí v most · <b>Skleněná stěna</b> se v inverzi složí a zablokuje tě (vypni včas!) · <b>Tlaková vlna a protisměrný sjezd</b> tě v inverzi vystřelí vpřed · <b>Padající nosníky</b> se vrací zpět · v inverzi se ale zrodí <span class="r">Echo stíny</span>.</p>
+  <p><b>Turniket</b> je v inverzi průchozí · <b>Zřícené schody</b> se v inverzi složí v most · <b>Skleněná stěna</b> se v inverzi složí a zablokuje tě (vypni včas!) · <b>Tlaková vlna a protisměrný sjezd</b> tě v inverzi vystřelí vpřed · <b>Padající nosníky</b> (nízké přeskoč, visící podklouzni) se vrací zpět · v inverzi se ale zrodí <span class="r">Echo stíny</span>.</p>
   <p>Inverze žere Chrono-energii (žluté krystaly ji doplňují). Zásah = −1 integrita, bez okamžité smrti.</p>
-  <p class="sm">PC: ←/→ nebo A/D = pohyb · MEZERA/↑ = skok · SHIFT/E = inverze<br>Mobil: tažení prstem = pohyb · tlačítka dole · švihnutí nahoru = skok</p>
+  <p class="sm">Mobil (na výšku): tažení prstem = pohyb · švih NAHORU = skok · švih DOLŮ = podklouznutí · tlačítko dole = inverze<br>PC: ←/→ nebo A/D · ↑/MEZERA = skok · ↓/S = podklouznutí · SHIFT/E = inverze</p>
   <button class="go" id="bStart">START</button>
 </div>
 
@@ -210,7 +208,7 @@ let distance=0,bonus=0,cellsGot=0,speed=16,speedMod=1,shake=0,fall=0;
 let nextZ=-70,segCount=0,lastType='',hintT=0,echoT=1;
 let best=0;try{best=+localStorage.getItem('chrono_best')||0}catch(e){}
 const obs=[],cells=[],echoes=[];
-let invTime=0,phasePasses=0;
+let invTime=0,phasePasses=0,slideT=0;
 
 // ---------- materials/geoms for obstacles ----------
 const mRed=new THREE.MeshBasicMaterial({color:0xff2244,transparent:true,opacity:.5,depthWrite:false});
@@ -273,13 +271,13 @@ function mkGap(z){
   return{type:'gap',z,len,g,steps,rub,bt:0,fell:false,done:false};
 }
 function mkBeam(z){
-  const cxp=rnd(-2.6,2.6);
+  const cxp=rnd(-2.6,2.6),high=Math.random()<.45;
   const g=new THREE.Group();
   const m=new THREE.Mesh(new THREE.BoxGeometry(4.8,1.0,1.0),new THREE.MeshStandardMaterial({color:0xff5a1f,emissive:0x992200,roughness:.5}));
-  m.position.y=.5;g.add(m);
+  m.position.y=high?1.75:.5;g.add(m);
   const warn=new THREE.Mesh(new THREE.BoxGeometry(4.8,.06,3),new THREE.MeshBasicMaterial({color:0xff2200,transparent:true,opacity:.35}));warn.position.set(0,.03,0);g.add(warn);
   g.position.set(cxp,0,z);scene.add(g);
-  return{type:'beam',z,z0:z,len:1,g,cx:cxp,active:false,hit:false,done:false};
+  return{type:'beam',z,z0:z,len:1,g,cx:cxp,high,active:false,hit:false,done:false};
 }
 function mkWave(z){
   const len=26,g=new THREE.Group();g.position.set(0,0,z-len/2);
@@ -350,7 +348,7 @@ function spawnSegment(){
   if(t==='gap'||t==='ramp'||t==='wave')cellLine(z-o.len-8,z-o.len-24,rnd(-3,3),4);
 }
 const HINT={turn:['INVERZE → turniket se otevře','i'],gap:['INVERZE → schody se složí v most','i'],glass:['NORMÁLNÍ ČAS → sklo se v inverzi složí!','n'],
-  beam:['INVERZE nebo uhni / skoč','i'],ramp:['Zajeď doprava a zapni INVERZI → sjezd tě vystřelí','i'],wave:['INVERZE → tlaková vlna tě katapultuje','i']};
+  beam:['Skoč ↑ / podklouzni ↓ / uhni / INVERZE','i'],ramp:['Zajeď doprava a zapni INVERZI → sjezd tě vystřelí','i'],wave:['INVERZE → tlaková vlna tě katapultuje','i']};
 
 // ---------- audio ----------
 let ac=null,master,lp,noiseBuf,step=0,nextNote=0,schedTimer=null;
@@ -436,9 +434,13 @@ function toggleInv(){
   if(!inv){if(energy<10){toast('MÁLO ENERGIE','#f66');return}setInv(true)}
   else setInv(false);
 }
+function slide(){
+  if(state!=='play'||fall>0)return;
+  slideT=.75;if(P.y>.05)P.vy=-26;haptic(10);if(ac)noise(ac.currentTime+.01,.25,.25,'bandpass',1500,300);
+}
 function jump(){
   if(state!=='play'||fall>0)return;
-  if(P.y<=.02){P.vy=12.5;sfx('jump');haptic(10)}
+  if(P.y<=.02){slideT=0;P.vy=12.5;sfx('jump');haptic(10)}
 }
 function damage(why){
   if(invuln>0)return;
@@ -458,12 +460,12 @@ function reset(){
   P.x=0;P.y=0;P.z=0;P.vy=0;P.tx=0;
   inv=false;document.body.classList.remove('inv');setAudioInv();
   invCool=0;energy=60;integrity=3;invuln=0;stun=0;distance=0;bonus=0;cellsGot=0;speed=16;speedMod=1;fall=0;
-  nextZ=-70;segCount=0;lastType='';echoT=1;invTime=0;phasePasses=0;zoneIdx=-1;
+  nextZ=-70;segCount=0;lastType='';echoT=1;invTime=0;phasePasses=0;zoneIdx=-1;slideT=0;
   updateLives();
   for(let i=0;i<4;i++)spawnSegment();
 }
 function startGame(){
-  initAudio();reset();state='play';
+  initAudio();reset();state='play';try{screen.orientation&&screen.orientation.lock&&screen.orientation.lock('portrait').catch(()=>{})}catch(e){}
   $('menu').classList.remove('on');$('over').classList.remove('on');
   $('best').textContent='REKORD '+best;
 }
@@ -479,7 +481,7 @@ function endGame(){
 
 // ---------- update ----------
 function update(dt){
-  invCool=Math.max(0,invCool-dt);invuln=Math.max(0,invuln-dt);stun=Math.max(0,stun-dt);
+  slideT=Math.max(0,slideT-dt);invCool=Math.max(0,invCool-dt);invuln=Math.max(0,invuln-dt);stun=Math.max(0,stun-dt);
   shake=Math.max(0,shake-dt*1.4);
 
   // speed
@@ -558,7 +560,7 @@ function update(dt){
         if(o.active){
           if(!inv)o.z+=26*dt;else o.z=Math.max(o.z0,o.z-26*dt);
           o.g.position.z=o.z;o.g.position.y=0;
-          if(!inv&&!o.hit&&fall<=0&&Math.abs(o.z-P.z)<1.1&&Math.abs(P.x-o.cx)<2.9&&P.y<1.1){o.hit=true;damage('NOSNÍK TĚ ZASÁHL')}
+          if(!inv&&!o.hit&&fall<=0&&Math.abs(o.z-P.z)<1.1&&Math.abs(P.x-o.cx)<2.9&&(o.high?(slideT<=0&&P.y<1.2):P.y<1.1)){o.hit=true;damage('NOSNÍK TĚ ZASÁHL')}
           if(!o.done&&o.z>P.z+3){o.done=true;if(!o.hit){bonus+=40;}}
         }
         break}
@@ -664,6 +666,7 @@ function updateVisuals(dt,t){
   const swing=Math.sin(P.runT*2)*(P.y>.05?.2:.9);
   legL.rotation.x=swing;legR.rotation.x=-swing;armL.rotation.x=-swing;armR.rotation.x=swing;
   torso.position.y=1.35+Math.abs(Math.sin(P.runT*2))*.06;
+  pg.scale.y=lerp(pg.scale.y,slideT>0?.5:1,Math.min(1,dt*18));
   pg.rotation.z=lerp(pg.rotation.z,clamp((P.tx-P.x)*.08,-.3,.3),.2);
   pg.visible=invuln<=0||Math.floor(t*14)%2===0;
   pGlowMat.color.setHex(inv?0xff2d95:0x00e5ff);
@@ -691,7 +694,8 @@ addEventListener('keydown',e=>{
   const k=e.key.toLowerCase();
   if(state!=='play'){if(k==='enter'||k===' ')startGame();return}
   if(k===' '||k==='arrowup'||k==='w'){jump();e.preventDefault()}
-  else if(k==='shift'||k==='e'||k==='q'||k==='arrowdown'||k==='s'){toggleInv();e.preventDefault()}
+  else if(k==='arrowdown'||k==='s'){slide();e.preventDefault()}
+  else if(k==='shift'||k==='e'||k==='q'){toggleInv();e.preventDefault()}
   keys[k]=true;
 });
 addEventListener('keyup',e=>{keys[e.key.toLowerCase()]=false});
@@ -705,7 +709,9 @@ canvas.addEventListener('pointerdown',e=>{
 canvas.addEventListener('pointermove',e=>{
   if(e.pointerId!==steerId)return;
   P.tx=clamp(stx+(e.clientX-sx)/innerWidth*16,-HALF+.6,HALF-.6);
-  if(sy-e.clientY>70&&performance.now()-st0<450){sy=e.clientY+0;jump();st0=0}
+  const dy=e.clientY-sy;
+  if(dy<-60&&performance.now()-st0<500){jump();sy=e.clientY;st0=performance.now()}
+  else if(dy>60&&performance.now()-st0<500){slide();sy=e.clientY;st0=performance.now()}
 });
 const endSteer=e=>{if(e.pointerId===steerId)steerId=null};
 canvas.addEventListener('pointerup',endSteer);canvas.addEventListener('pointercancel',endSteer);
@@ -716,7 +722,7 @@ function bindBtn(id,fn){
   const up=()=>b.classList.remove('down');
   b.addEventListener('pointerup',up);b.addEventListener('pointerleave',up);b.addEventListener('pointercancel',up);
 }
-bindBtn('bInv',toggleInv);bindBtn('bJump',jump);
+bindBtn('bInv',toggleInv);
 $('bSwap').addEventListener('click',()=>document.body.classList.toggle('swap'));
 $('bStart').addEventListener('click',startGame);
 $('bRetry').addEventListener('click',startGame);
@@ -748,7 +754,7 @@ function frame(now){
 requestAnimationFrame(frame);
 
 // debug hooks (testing)
-window.__chrono={get state(){return state},get inv(){return inv},get energy(){return energy},get integrity(){return integrity},get dist(){return distance},P,start:startGame,toggle:toggleInv,jump};
+window.__chrono={get state(){return state},get inv(){return inv},get energy(){return energy},get integrity(){return integrity},get dist(){return distance},P,start:startGame,toggle:toggleInv,jump,slide};
 })();
 </script>
 </body>
